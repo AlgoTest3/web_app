@@ -81,15 +81,14 @@ def result():
     end_quiz()
     return html
 
-folder = os.getcwd() # запомнили текущую рабочую папку
-# Создаём объект веб-приложения:
-app = Flask(__name__, template_folder=folder, static_folder=folder)  
-app.add_url_rule('/', 'index', index, methods=['post', 'get'])   # создаёт правило для URL '/'
-app.add_url_rule('/test', 'test', test, methods=['post', 'get']) # создаёт правило для URL '/test'
-app.add_url_rule('/result', 'result', result) # создаёт правило для URL '/test'
-# Устанавливаем ключ шифрования:
-app.config['SECRET_KEY'] = 'ThisIsSecretSecretSecretLife'
+
+folder = os.getcwd() 
+app = Flask(__name__, template_folder=folder+'/templates', static_folder=folder+"/static")
+app.add_url_rule('/', 'index', index, methods=['post', 'get'])
+app.add_url_rule('/test', 'test', test, methods=['post', 'get'])
+app.add_url_rule('/result', 'result', result)
+
+app.config['SECRET_KEY'] = 'ThisIsSecretSecretKey'
 
 if __name__ == "__main__":
-    # Запускаем веб-сервер:
     app.run()
